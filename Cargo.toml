@@ -1,0 +1,11 @@
+[package]
+name = "playground"
+version = "0.1.0"
+authors = ["vlnk <vlnk@icloud.com>"]
+
+[dependencies]
+rand = "*"
+yaml-rust = "*"
+
+serde = "^0.7"
+serde_yaml = "^0.2"

@@ -1,0 +1,9 @@
+equal:
+    en: "You win!"
+    fr: "Bravo!"
+greater:
+    en: "Too big!"
+    fr: "Trop grand!"
+less:
+    en: "Too small!"
+    fr: "Trop petit!"

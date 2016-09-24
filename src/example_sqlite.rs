@@ -4,7 +4,6 @@ extern crate time;
 use time::Timespec;
 use rusqlite::Connection;
 
-use;
 
 #[derive(Debug)]
 struct bookmark {

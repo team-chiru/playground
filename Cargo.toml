@@ -2,10 +2,21 @@
 name = "playground"
 version = "0.1.0"
 authors = ["vlnk <vlnk@icloud.com>"]
+build = "build.rs"
+
+[features]
+default = ["serde_codegen"]
+unstable = ["serde_macros"]
+
+[build-dependencies]
+serde_codegen = { version = "0.8", optional = true }
 
 [dependencies]
+serde = "0.8"
+serde_test = "0.8"
+serde_json = "0.8"  # just for the example, not required in general
+serde_yaml = "^0.2"
+serde_macros = { version = "0.8", optional = true }
+
 rand = "*"
 yaml-rust = "*"
-
-serde = "^0.7"
-serde_yaml = "^0.2"

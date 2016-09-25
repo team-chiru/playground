@@ -1,7 +1,7 @@
 # playground
 Playground to test library and rust idioms
 
-# Logo credits
+#### logo credits
 - Background:
   
 	[Artur Staszewski](https://www.flickr.com/photos/arturstaszewski/)

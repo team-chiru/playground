@@ -1,3 +1,4 @@
+// serde nightly stuff (not really clean)
 #![cfg_attr(feature = "serde_macros", feature(plugin, custom_derive))]
 #![cfg_attr(feature = "serde_macros", plugin(serde_macros))]
 
@@ -21,7 +22,25 @@ use clap::App;
 
 const TRADUCTION_PATH: &'static str = "res/lang.yaml";
 
+// maybe store it into db (or better: into cache)
+static mut LANG: Lang = Lang::EN;
+
+// macro for translate: it's really dumb and not optimize
+macro_rules! translate {
+    ($msg:expr) => {{
+        // i need to call translator constructor each time...
+        let translator = Translator::new_from_config(TRADUCTION_PATH);
+        unsafe {
+            match translator.translate($msg, &LANG) {
+                Some(s) => println!("{}", s),
+                _ => println!("{}", $msg),
+            }
+        }
+    }};
+}
+
 fn main() {
+    // load cli configuration
     let yaml_cli = load_yaml!("../res/cli.yaml");
     let matches = App::from_yaml(yaml_cli).get_matches();
 
@@ -30,12 +49,11 @@ fn main() {
         _ => "en",
     };
 
-    let lang = Lang::from(lang_cli);
+    // load language configuration
+    unsafe {
+        LANG = Lang::from(lang_cli);
+    }
 
-    // load language config
-    let translator = Translator::new_from_config(TRADUCTION_PATH);
-
-    println!("{:?}", translator.translate("equal", &lang));
 
     println!("Guess the number!");
 
@@ -73,9 +91,9 @@ enum GResult {
 
 fn answer(a: Ordering) {
     match a {
-        Ordering::Less => println!("Too small!"),
-        Ordering::Greater => println!("Too big!"),
-        Ordering::Equal => println!("You win!"),
+        Ordering::Less => translate!("less"),
+        Ordering::Greater => translate!("greater"),
+        Ordering::Equal => translate!("equal"),
     }
 }
 

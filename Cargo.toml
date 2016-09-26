@@ -20,3 +20,4 @@ serde_macros = { version = "0.8", optional = true }
 
 rand = "*"
 yaml-rust = "*"
+clap = { version = "*", features = [ "yaml", "suggestions", "color" ] }

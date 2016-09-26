@@ -10,22 +10,32 @@ include!(concat!(env!("OUT_DIR"), "/translate.rs"));
 extern crate rand;
 extern crate yaml_rust;
 
-extern crate serde;
-extern crate serde_yaml;
-extern crate serde_json;
+#[macro_use]
+extern crate clap;
 
 use std::io;
 use std::io::Read;
 use std::cmp::Ordering;
 use rand::Rng;
+use clap::App;
+
+const TRADUCTION_PATH: &'static str = "res/lang.yaml";
 
 fn main() {
+    let yaml_cli = load_yaml!("../res/cli.yaml");
+    let matches = App::from_yaml(yaml_cli).get_matches();
+
+    let lang_cli = match matches.value_of("lang") {
+        Some(l) => l,
+        _ => "en",
+    };
+
+    let lang = Lang::from(lang_cli);
+
     // load language config
-//    let lang = translate_from_config("equal", Lang::FR);
+    let translator = Translator::new_from_config(TRADUCTION_PATH);
 
-    let translator = Translator::new_from_config();
-
-    println!("{:?}", translator.translate(&String::from("equal"), &Lang::EN));
+    println!("{:?}", translator.translate("equal", &lang));
 
     println!("Guess the number!");
 
@@ -36,8 +46,6 @@ fn main() {
         println!("Please input your guess.");
 
         let mut guess = String::new();
-
-
         match io::stdin().read_line(&mut guess) {
             Ok(..) => {},
             Err(_) => println!("Failed to read line"),

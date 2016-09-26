@@ -1,0 +1,9 @@
+name: playground
+version: '0.1'
+author: Team Chiru <team-chiru@protonmail.com>
+about: do a lot of things but it is mainly an overkilled guessing game
+args:
+    - lang:
+        short: l
+        long: lang
+        value_name: LANG

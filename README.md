@@ -1,7 +1,7 @@
-# playground
+### playground
 Playground to test library and rust idioms
 
-#### logo credits
+### logo credits
 - Background:
   
 	[Artur Staszewski](https://www.flickr.com/photos/arturstaszewski/)
@@ -12,4 +12,4 @@ Playground to test library and rust idioms
   
 	Image ID: 33177173
   
-	©️ [Krookedeye | Dreamstime.com](http://www.dreamstime.com/krookedeye_info]
+	©️ [Krookedeye | Dreamstime.com](http://www.dreamstime.com/krookedeye_info)

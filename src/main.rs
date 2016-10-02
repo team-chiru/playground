@@ -29,6 +29,8 @@ static mut LANG: Lang = Lang::EN;
 macro_rules! translate {
     ($msg:expr) => {{
         // i need to call translator constructor each time...
+        // it's maybe better to load some critic file in the cache
+        // TODO test redis-rs
         let translator = Translator::new_from_config(TRADUCTION_PATH);
         unsafe {
             match translator.translate($msg, &LANG) {
@@ -41,6 +43,7 @@ macro_rules! translate {
 
 fn main() {
     // load cli configuration
+    // cli data scheme : cli.yaml
     let yaml_cli = load_yaml!("../res/cli.yaml");
     let matches = App::from_yaml(yaml_cli).get_matches();
 
@@ -53,7 +56,6 @@ fn main() {
     unsafe {
         LANG = Lang::from(lang_cli);
     }
-
 
     println!("Guess the number!");
 
